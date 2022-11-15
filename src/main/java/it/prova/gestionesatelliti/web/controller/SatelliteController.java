@@ -1,5 +1,6 @@
 package it.prova.gestionesatelliti.web.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.prova.gestionesatelliti.model.Satellite;
+import it.prova.gestionesatelliti.model.StatoSatellite;
 import it.prova.gestionesatelliti.service.SatelliteService;
 
 @Controller
@@ -105,5 +107,25 @@ public class SatelliteController {
 
 		redirectAttr.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/satellite";
+	}
+	
+	@GetMapping("/findLanciatiPiuDi2Anni")
+	public ModelAndView findLanciatiPiuDi2Anni() {
+		ModelAndView mv = new ModelAndView();
+		
+		List<Satellite> results = satelliteService.findLanciatiPiuDi2Anni(new Date());
+		mv.addObject("satellite_list_attribute", results);
+		mv.setViewName("satellite/list");
+		return mv;
+	}
+	
+	@GetMapping("/findDisattivatiMaNonRientrati")
+	public ModelAndView findDisattivatiMaNonRientrati() {
+		ModelAndView mv = new ModelAndView();
+		
+		List<Satellite> results = satelliteService.findDisattivatiMaNonRientrati();
+		mv.addObject("satellite_list_attribute", results);
+		mv.setViewName("satellite/list");
+		return mv;
 	}
 }

@@ -83,12 +83,37 @@
 			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
 			        </a>
 			      </div>
+			    </div>
+			    
+			    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+			      <div class="feature col">
+			        <div class="feature-icon bg-primary bg-gradient">
+			         <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
+			        </div>
+			        <h2>Lanciati da più di due anni</h2>
+			        <p>fornisce una lista di satelliti lanciati da più di due anni che non sono disattivati.</p>
+			        <a href="satellite/findLanciatiPiuDi2Anni" class="icon-link">
+			          Vai alla funzionalità
+			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
+			        </a>
+			      </div>
+			      <div class="feature col">
+			        <div class="feature-icon bg-primary bg-gradient">
+			         <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
+			        </div>
+			        <h2>Disattivati ma non rientrati</h2>
+			        <p>fornisce una lista di satelliti disattivati e senza data di rientro.</p>
+			        <a href="satellite/findDisattivatiMaNonRientrati" class="icon-link">
+			          Vai alla funzionalità
+			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
+			        </a>
+			      </div>
 			      <div class="feature col">
 			        <div class="feature-icon bg-primary bg-gradient">
 			          <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
 			        </div>
-			        <h2>Altra Funzione</h2>
-			        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+			        <h2>Rimasti in orbita 10 anni</h2>
+			        <p>fornisce una lista di satelliti che sono rimasti in orbita per 10 anni e che ora sono fissi.</p>
 			        <a href="#" class="icon-link">
 			          Vai alla funzionalità
 			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>

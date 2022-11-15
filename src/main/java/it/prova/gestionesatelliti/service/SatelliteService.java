@@ -1,8 +1,10 @@
 package it.prova.gestionesatelliti.service;
 
+import java.util.Date;
 import java.util.List;
 
 import it.prova.gestionesatelliti.model.Satellite;
+import it.prova.gestionesatelliti.model.StatoSatellite;
 
 public interface SatelliteService {
 	public List<Satellite> listAllElements();
@@ -17,6 +19,7 @@ public interface SatelliteService {
 	
 	public List<Satellite> findByExample(Satellite example);
 	
-	//i 3 metodi da fare
-	//TODO
+	List<Satellite> findLanciatiPiuDi2Anni(Date data);
+	
+	List<Satellite> findDisattivatiMaNonRientrati();
 }
