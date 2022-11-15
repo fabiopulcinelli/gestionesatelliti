@@ -22,4 +22,6 @@ public interface SatelliteService {
 	List<Satellite> findLanciatiPiuDi2Anni(Date data);
 	
 	List<Satellite> findDisattivatiMaNonRientrati();
+	
+	List<Satellite> findRimastiInOrbita10AnniFissi(Date data);
 }

@@ -128,4 +128,14 @@ public class SatelliteController {
 		mv.setViewName("satellite/list");
 		return mv;
 	}
+	
+	@GetMapping("/findRimastiInOrbita10AnniFissi")
+	public ModelAndView findRimastiInOrbita10AnniFissi() {
+		ModelAndView mv = new ModelAndView();
+		
+		List<Satellite> results = satelliteService.findRimastiInOrbita10AnniFissi(new Date());
+		mv.addObject("satellite_list_attribute", results);
+		mv.setViewName("satellite/list");
+		return mv;
+	}
 }

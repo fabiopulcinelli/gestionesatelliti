@@ -15,4 +15,7 @@ public interface SatelliteRepository extends CrudRepository<Satellite, Long>,Jpa
 	
 	@Query(value="FROM Satellite WHERE stato = 'DISATTIVATO' AND dataRientro IS NULL")
 	List<Satellite> findDisattivatiMaNonRientrati();
+	
+	@Query(value="SELECT * FROM satellite WHERE TIMESTAMPDIFF(year, ?1, dataLancio) < -10 AND stato = 'FISSO'", nativeQuery=true)
+	List<Satellite> findRimastiInOrbita10AnniFissi(Date data);
 }

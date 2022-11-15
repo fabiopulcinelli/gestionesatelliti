@@ -91,4 +91,10 @@ public class SatelliteServiceImpl implements SatelliteService {
 	public List<Satellite> findDisattivatiMaNonRientrati() {
 		return repository.findDisattivatiMaNonRientrati();
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Satellite> findRimastiInOrbita10AnniFissi(Date data) {
+		return repository.findRimastiInOrbita10AnniFissi(data);
+	}
 }

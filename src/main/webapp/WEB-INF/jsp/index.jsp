@@ -114,7 +114,7 @@
 			        </div>
 			        <h2>Rimasti in orbita 10 anni</h2>
 			        <p>fornisce una lista di satelliti che sono rimasti in orbita per 10 anni e che ora sono fissi.</p>
-			        <a href="#" class="icon-link">
+			        <a href="satellite/findRimastiInOrbita10AnniFissi" class="icon-link">
 			          Vai alla funzionalità
 			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
 			        </a>
