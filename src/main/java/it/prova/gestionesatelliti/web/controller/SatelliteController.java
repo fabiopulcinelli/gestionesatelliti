@@ -113,9 +113,11 @@ public class SatelliteController {
 	public String aggiorna(@Valid @ModelAttribute("update_satellite_attr") Satellite satellite, BindingResult result,
 			RedirectAttributes redirectAttr) {
 
-		if(satellite.getDataRientro().before( satellite.getDataLancio())) {
-			result.rejectValue("dataLancio", "satellite.dataLancio.deveessere.minore");
-			result.rejectValue("dataRientro", "satellite.dataRientro.deveessere.maggiore");
+		if(satellite.getDataRientro()!=null && satellite.getDataLancio()!=null) {
+			if(satellite.getDataRientro().before( satellite.getDataLancio())) {
+				result.rejectValue("dataLancio", "satellite.dataLancio.deveessere.minore");
+				result.rejectValue("dataRientro", "satellite.dataRientro.deveessere.maggiore");
+			}
 		}
 		
 		if (result.hasErrors())
@@ -165,6 +167,35 @@ public class SatelliteController {
 		satellite.setDataRientro(new Date());
 		satellite.setStato(StatoSatellite.DISATTIVATO);
 		satelliteService.aggiorna(satellite);
+	}
+	
+	@GetMapping("/disableall")
+	public String disableall(ModelMap model) {
+		int sizeAll = satelliteService.listAllElements().size();
+		
+		List<Satellite> results = satelliteService.findDaDisabilitare();
+		model.addAttribute("disableall_satellite_attr", results);
+		model.addAttribute("sizeall", sizeAll);
+		model.addAttribute("size", results.size());
+		return "satellite/disableall";
+	}
+	
+	@PostMapping("/disabilita")
+	public ModelAndView disabilita() {
+
+		ModelAndView mv = new ModelAndView();
+		List<Satellite> results = satelliteService.findDaDisabilitare();
+
+		for(Satellite satelliteItem:results) {
+			satelliteItem.setStato(StatoSatellite.DISATTIVATO);
+			satelliteItem.setDataRientro(new Date());
+			
+			satelliteService.aggiorna(satelliteItem);
+		}
+	
+		mv.addObject("satellite_list_attribute", results);
+		mv.setViewName("index");
+		return mv;
 	}
 	
 	@GetMapping("/findLanciatiPiuDi2Anni")

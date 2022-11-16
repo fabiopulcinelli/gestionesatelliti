@@ -24,4 +24,6 @@ public interface SatelliteService {
 	List<Satellite> findDisattivatiMaNonRientrati();
 	
 	List<Satellite> findRimastiInOrbita10AnniFissi(Date data);
+	
+	List<Satellite> findDaDisabilitare();
 }
