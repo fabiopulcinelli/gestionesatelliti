@@ -63,11 +63,13 @@ public class SatelliteController {
 		if (result.hasErrors())
 			return "satellite/insert";
 		
-		if(satellite.getDataRientro().before( satellite.getDataLancio())) {
-			result.rejectValue("dataLancio", "satellite.dataLancio.deveessere.minore");
-			result.rejectValue("dataRientro", "satellite.dataRientro.deveessere.maggiore");
+		if(satellite.getDataRientro()!=null && satellite.getDataLancio()!=null) {
+			if(satellite.getDataRientro().before( satellite.getDataLancio())) {
+				result.rejectValue("dataLancio", "satellite.dataLancio.deveessere.minore");
+				result.rejectValue("dataRientro", "satellite.dataRientro.deveessere.maggiore");
+			}
 		}
-				
+		
 		satelliteService.inserisciNuovo(satellite);
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
@@ -143,7 +145,11 @@ public class SatelliteController {
 	public String rientro(@PathVariable(required = true) Long idSatellite, Model model) {
 		model.addAttribute("rientro_satellite_attr", satelliteService.caricaSingoloElemento(idSatellite));
 		Satellite satellite = satelliteService.caricaSingoloElemento(idSatellite);
+		Date data = new Date();
 		
+		if(satellite.getStato()==null) {
+			return "satellite/search";
+		}
 		renter(satellite);
 		return "satellite/rientro";
 	}
