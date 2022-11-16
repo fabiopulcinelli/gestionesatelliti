@@ -91,9 +91,15 @@ public class SatelliteController {
 	@PostMapping("/elimina")
 	public String elimina(@RequestParam(name = "idSatellite") Long idSatellite, RedirectAttributes redirectAttrs) {
 
-		satelliteService.rimuovi(idSatellite);
-
-		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
+		Satellite satellite = satelliteService.caricaSingoloElemento(idSatellite);
+		if(satellite.getStato()==StatoSatellite.DISATTIVATO && satellite.getDataLancio()!=null) {
+			satelliteService.rimuovi(idSatellite);
+			redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
+		}
+		else {
+			redirectAttrs.addFlashAttribute("errorMessage", "Delete errata");
+		}
+		
 		return "redirect:/satellite";
 	}
 	
