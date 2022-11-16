@@ -62,7 +62,12 @@ public class SatelliteController {
 
 		if (result.hasErrors())
 			return "satellite/insert";
-
+		
+		if(satellite.getDataRientro().before( satellite.getDataLancio())) {
+			result.rejectValue("dataLancio", "satellite.dataLancio.deveessere.minore");
+			result.rejectValue("dataRientro", "satellite.dataRientro.deveessere.maggiore");
+		}
+				
 		satelliteService.inserisciNuovo(satellite);
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
@@ -100,6 +105,11 @@ public class SatelliteController {
 	public String aggiorna(@Valid @ModelAttribute("update_satellite_attr") Satellite satellite, BindingResult result,
 			RedirectAttributes redirectAttr) {
 
+		if(satellite.getDataRientro().before( satellite.getDataLancio())) {
+			result.rejectValue("dataLancio", "satellite.dataLancio.deveessere.minore");
+			result.rejectValue("dataRientro", "satellite.dataRientro.deveessere.maggiore");
+		}
+		
 		if (result.hasErrors())
 			return "satellite/update";
 
@@ -107,6 +117,42 @@ public class SatelliteController {
 
 		redirectAttr.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/satellite";
+	}
+	
+	@GetMapping("/lancio/{idSatellite}")
+	public String lancio(@PathVariable(required = true) Long idSatellite, Model model) {
+		model.addAttribute("launch_satellite_attr", satelliteService.caricaSingoloElemento(idSatellite));
+		Satellite satellite = satelliteService.caricaSingoloElemento(idSatellite);
+		
+		if(satellite.getStato()!=null) {
+			return "satellite/search";
+		}
+		launch(satellite);
+		
+		return "satellite/lancio";
+	}
+	
+	public void launch(@Valid @ModelAttribute("launch_satellite_attr") Satellite satellite) {
+		
+		satellite.setDataLancio(new Date());
+		satellite.setStato(StatoSatellite.IN_MOVIMENTO);
+		satelliteService.aggiorna(satellite);
+	}
+	
+	@GetMapping("/rientro/{idSatellite}")
+	public String rientro(@PathVariable(required = true) Long idSatellite, Model model) {
+		model.addAttribute("rientro_satellite_attr", satelliteService.caricaSingoloElemento(idSatellite));
+		Satellite satellite = satelliteService.caricaSingoloElemento(idSatellite);
+		
+		renter(satellite);
+		return "satellite/rientro";
+	}
+	
+	public void renter(@Valid @ModelAttribute("rientro_satellite_attr") Satellite satellite) {
+		
+		satellite.setDataRientro(new Date());
+		satellite.setStato(StatoSatellite.DISATTIVATO);
+		satelliteService.aggiorna(satellite);
 	}
 	
 	@GetMapping("/findLanciatiPiuDi2Anni")

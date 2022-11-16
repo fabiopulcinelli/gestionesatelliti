@@ -4,7 +4,6 @@
 <!doctype html>
 <html lang="it" class="h-100" >
 	 <head>
-	 
 	 	<!-- Common imports in pages -->
 	 	<jsp:include page="../header.jsp" />
 		<style>
